@@ -1,6 +1,9 @@
 const express = require("express");
 const app = express();
 const movieRouter = require("./Routes/movieRoutes.js");
+const cors = require("cors");
+
+app.use(cors());
 
 app.use(express.json());
 

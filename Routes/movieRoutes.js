@@ -7,7 +7,7 @@ router.get("/",(request, response)=>{
     const moviesJSON = fs.readFileSync("./Data/movies.json");
     const movies = JSON.parse(moviesJSON);
     const moviesFormatted = movies.map((movie) => {
-        return {id:movie.id, title:movie.title, channel: movie.title, image: movie.image}
+        return {id:movie.id, title:movie.title, channel: movie.channel, image: movie.image}
     });
 
     response.json(moviesFormatted);
@@ -39,7 +39,7 @@ const movieDefaults = {
     id: "This is a movie Id",
     title: "This is a movie title",
     channel: "User Upload",
-    image: "/static/StaticImage.jpg",
+    image: "http://localhost:8080/static/493.jpg",
     description: "This is a movie description",
     views: "0",
     likes: "0",
@@ -49,11 +49,11 @@ const movieDefaults = {
     comments: [],
 }
 
-    // title, description, we add timestamp, id 
-
 router.post("/",(request, response)=>{
     const movie = { ...movieDefaults, ...request.body, timestamp:Date.now(), id:uuidv4()}
-    // console.log(request.body);
+    if (!request.body.title || !request.body.description) {
+        return response.status(400).send("Please fill out alll fields.");
+    } 
     const moviesJSON = fs.readFileSync("./data/movies.json");
     const movies = JSON.parse(moviesJSON);
     movies.push(movie);
