@@ -21,12 +21,19 @@ router.get("/",(request, response)=>{
 //     response.send(fs.readFileSync("./Data/movies.json"));
 // });
 
-// router.get("/:moviesId",(request, response)=>{
-//     const id = request.params.movieId;
-//     const moviesJSON = fs.readFileSync("./Data/movies.json");
-//     const movies = JSON.parse(moviesJSON);
-//     const movie = movies.find((movie)=>movie.id===id);
-//     response.json(movie);
-// });
+router.get("/:movieId",(request, response)=>{
+    const id = request.params.movieId;
+    const moviesJSON = fs.readFileSync("./Data/movies.json");
+    const movies = JSON.parse(moviesJSON);
+    const movie = movies.find((movie)=>movie.id===id);
+    if(!movie) {
+        return response.status(404).send("Movie not found.");
+    } else {
+        return response.json(movie);
+    }
+    
+});
+
+
 
 module.exports = router;
