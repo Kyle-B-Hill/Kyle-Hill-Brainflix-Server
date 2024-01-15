@@ -13,15 +13,6 @@ router.get("/",(request, response)=>{
     response.json(moviesFormatted);
 });
 
-
-
-// router.get("/",(request, response)=>{
-//     response.set({
-//         'Content-Type': 'application/json'
-//      }); 
-//     response.send(fs.readFileSync("./Data/movies.json"));
-// });
-
 router.get("/:movieId",(request, response)=>{
     const id = request.params.movieId;
     const moviesJSON = fs.readFileSync("./Data/movies.json");
@@ -39,7 +30,7 @@ const movieDefaults = {
     id: "This is a movie Id",
     title: "This is a movie title",
     channel: "User Upload",
-    image: "http://localhost:8080/static/493.jpg",
+    image: "http://localhost:8080/public/images/493.jpg",
     description: "This is a movie description",
     views: "0",
     likes: "0",
